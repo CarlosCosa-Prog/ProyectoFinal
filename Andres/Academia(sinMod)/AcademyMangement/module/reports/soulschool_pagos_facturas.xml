@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="soulschool.alumnos_report" model="ir.actions.report">
+        <field name="name">Imprimir Factura</field>
+        <field name="model">soulschool.pagos</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">soulschool.facturas_report_view</field>
+        <field name="report_file">soulschool.soulschool_report</field>
+        <field name="binding_model_id" ref="model_soulschool_pagos"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="facturas_report_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="pago">
+                <t t-call="web.external_layout">
+                    <head>
+                        <style>
+                            #cliente{
+                                border-right: 6px solid #6DAE4D;
+                                border-left: 6px solid #6DAE4D;
+                                padding: 15px;
+                                font-size: 13px;
+                            }
+                            #titulo {
+                                color: #6DAE4D;
+                            }
+                            .concept{
+                                text-align: center;
+                            }
+                            .precio{
+                                text-align: right;
+                            }
+                            .general{
+                                text-align: right;
+                            }
+                            .total{
+                                text-align: right;
+                                font-weight: bold;
+                            }
+                            #iban{
+                                font-size: 11px;
+                            }
+                            .comment{
+                                text-align: left;
+                                font-weight: bold;
+                            }
+                        </style>
+                    </head>
+                    <div class="page">
+                        <div class="container-fluid">
+                            <div class="row justify-content-start">
+                                <div class="col-5" id="cliente">
+                                    <h2 id="titulo">Cliente</h2>
+                                    <div class="row">
+                                        <t t-if="pago.nombre_cliente.alumnos_id.empresa_">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.empresa_id.nombre_empresa"/></span>
+                                        </t>
+                                        <t t-if="not pago.nombre_cliente.alumnos_id.edad">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.nombre_tutor"/></span>
+                                        </t>
+                                        <t t-if="not pago.nombre_cliente.alumnos_id.empresa_">
+                                            <t t-if="pago.nombre_cliente.alumnos_id.edad">
+                                                <span><t t-esc="pago.nombre_cliente.alumnos_id.nombre"/></span>
+                                            </t>
+                                        </t>
+                                    </div>
+                                    <div class="row">
+                                        <t t-if="pago.nombre_cliente.alumnos_id.empresa_">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.empresa_id.cif_empresa"/></span>
+                                        </t>
+                                        <t t-if="not pago.nombre_cliente.alumnos_id.edad">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.dni_tutor"/></span>
+                                        </t>
+                                        <t t-if="not pago.nombre_cliente.alumnos_id.empresa_">
+                                            <t t-if="pago.nombre_cliente.alumnos_id.edad">
+                                                <span><t t-esc="pago.nombre_cliente.alumnos_id.dni"/></span>
+                                            </t>
+                                        </t>
+                                    </div>
+                                    <div class="row col-8">
+                                        <t t-if="pago.nombre_cliente.alumnos_id.empresa_">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.empresa_id.calle_empresa"/></span>
+                                        </t>
+                                        <t t-if="not pago.nombre_cliente.alumnos_id.empresa_">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.direccion"/></span>
+                                        </t>
+                                    </div>
+                                    <div class="row">
+                                        <t t-if="pago.nombre_cliente.alumnos_id.empresa_">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.empresa_id.codigoPostal_empresa"/> <t t-esc="pago.nombre_cliente.alumnos_id.empresa_id.localidad_empresa"/></span>
+                                        </t>
+                                        <t t-if="not pago.nombre_cliente.alumnos_id.empresa_">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.codigo_postal"/> <t t-esc="pago.nombre_cliente.alumnos_id.localidad"/></span>
+                                        </t>
+                                    </div>
+                                    <div class="row">
+                                        <t t-if="pago.nombre_cliente.alumnos_id.empresa_">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.empresa_id.state_id.name"/>, <t t-esc="pago.nombre_cliente.alumnos_id.empresa_id.country_id.name"/></span>
+                                        </t>
+                                        <t t-if="not pago.nombre_cliente.alumnos_id.empresa_">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.state_id.name"/>, <t t-esc="pago.nombre_cliente.alumnos_id.country_id.name"/></span>
+                                        </t>
+                                    </div>
+                                    <div class="row">
+                                        <t t-if="pago.nombre_cliente.alumnos_id.empresa_">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.empresa_id.telefono_empresa"/></span>
+                                        </t>
+                                        <t t-if="not pago.nombre_cliente.alumnos_id.edad">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.telefono_tutor"/></span>
+                                        </t>
+                                        <t t-if="not pago.nombre_cliente.alumnos_id.empresa_">
+                                            <t t-if="pago.nombre_cliente.alumnos_id.edad">
+                                                <span><t t-esc="pago.nombre_cliente.alumnos_id.telefono"/></span>
+                                            </t>
+                                        </t>
+                                    </div>
+                                    <div class="row">
+                                        <t t-if="pago.nombre_cliente.alumnos_id.empresa_">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.empresa_id.email_empresa"/></span>
+                                        </t>
+                                        <t t-if="not pago.nombre_cliente.alumnos_id.edad">
+                                            <span><t t-esc="pago.nombre_cliente.alumnos_id.email_tutor"/></span>
+                                        </t>
+                                        <t t-if="not pago.nombre_cliente.alumnos_id.empresa_">
+                                            <t t-if="pago.nombre_cliente.alumnos_id.edad">
+                                                <span><t t-esc="pago.nombre_cliente.alumnos_id.email"/></span>
+                                            </t>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row justify-content-start">
+                                <div class="col-4">
+                                        <div class="row">
+                                            <strong>Número de factura:</strong> <span t-field="pago.num_factura"/>
+                                        </div>
+                                        <div class="row">
+                                            <strong>Fecha de factura:</strong> <span t-field="pago.fecha_factura"/>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <th>Concepto</th>
+                                <th>Cantidad</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="concept">
+                                        <span t-field="pago.curso"/>
+                                    </td>
+                                    <td class="precio">
+                                        <span t-field="pago.cantidad"/> €
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td class="general">Subtotal: </td>
+                                    <td class="general">
+                                        <span t-field="pago.cantidad"/> €
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="general">Descuento: </td>
+                                    <td class="general">
+                                        <span t-field="pago.descuento_factura"/> %
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="general">
+                                        <span>Base Imponible: </span>
+                                    </td>
+                                    <td class="general">
+                                        <span t-field="pago.baseImponible_factura"/> €
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="general">
+                                        <span>IVA: </span>
+                                    </td>
+                                    <td class="general">
+                                        <span t-field="pago.iva_factura"/> %
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="total">Total: </td>
+                                    <td class="total">
+                                        <span t-field="pago.total_factura"/> €
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="container-fluid">
+                            <div class="row justify-content-start">
+                                <div class="col-6">
+                                    <div class="comment">
+                                        <t t-if="pago.iva_factura==0">
+                                            <span>EXENTA DE IVA S/ART.20 LEY 37/1992</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span t-field="pago.nota_factura"/>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="container-fluid">
+                            <div class="row justify-content-start">
+                                <div class="col-8">
+                                        <div class="row" id="iban">
+                                            <strong>IBAN:</strong> ES00 0001 0002 0003 0004 0005
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

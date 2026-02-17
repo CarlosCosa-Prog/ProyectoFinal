@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Alumnos Order -->
+  
+  <!-- Alumnos Order Tree-->
+    <record id="alumnos_order_view_tree" model="ir.ui.view">
+      <field name="name">alumnos_order.view.tree</field>
+      <field name="model">soulschool.alumnos_order</field>
+      <field name="arch" type="xml">
+        <tree 
+        decoration-bf="en_curso==True" 
+        decoration-success="en_curso==True" 
+        decoration-warning="en_curso==False" 
+        multi_edit="1" sample="1"> 
+          <field name="curso_id"/> 
+          <field name="fecha_inicio" />
+          <field name="fecha_fin" />
+          <field name="en_curso" invisible="1"/>
+          <field name="tipo_pago" invisible="1"/>
+          <field name="coste_mes" attrs="{'invisible': [('tipo_pago', '=', 'total')]}"/>
+          <field name="coste_total" attrs="{'invisible': [('tipo_pago', '=', 'mensual')]}"/>
+          <field name="pagado"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Alumnos Order Form -->
+    <record id="alumnos_order_view_form" model="ir.ui.view">
+        <field name="name">alumnos_order.view.form</field>
+        <field name="model">soulschool.alumnos_order</field>
+        <field name="arch" type="xml">
+          <form string="Alumno Order Line">
+            <group>
+              <field name="curso_id" string="Curso"/>
+              <field name="fecha_inicio" string="Fecha de Inicio"/>
+              <field name="fecha_fin" string="Fecha de Fin"/>
+              <field name="tipo_pago" widget="radio" options="{'horizontal': True}"/>
+              <field name="tipo_curso" widget="radio" options="{'horizontal': True}"/>
+              <field name="coste_mes" attrs="{'invisible': [('tipo_pago', '=', 'total')]}"/>
+              <field name="coste_total" attrs="{'invisible': [('tipo_pago', '=', 'mensual')]}"/>
+            </group>
+            <notebook>
+              <page name="pagos" string="Pagos">
+                <field name="pago" mode="tree,kanban" widget="one2many_list" options="{'drag_and_drop': False}">
+                  <tree>
+                    <field name="fecha_pago"/>
+                    <field name="es_matricula"/>
+                    <field name="cantidad"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+          </form>
+        </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record id="soulschool.alumnos_order_action" model="ir.actions.act_window">
+      <field name="name">Alumnos Order</field>
+      <field name="res_model">soulschool.alumnos_order</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+<!-- Fin Vista Alumnos Order -->
+</odoo>

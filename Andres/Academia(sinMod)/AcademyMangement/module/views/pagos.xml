@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- Vista Pagos -->
+
+    <!-- Tree View Pagos -->
+
+    <record id="pagos_view_tree" model="ir.ui.view">
+        <field name="name">pagos.view.tree</field>
+        <field name="model">soulschool.pagos</field>
+        <field name="arch" type="xml">
+            <tree multi_edit="1" sample="1">
+                <field name="fecha_pago"/>
+                <field name="alumno" />
+                <field name="dni_alumno" />
+                <field name="viene_empresa" invisible="1"/>
+                <field name="edad" invisible="1"/>
+                <field name="dni_tutor" attrs="{'invisible':[('edad','=',True)]}"/>
+                <field name="nombre_tutor" attrs="{'invisible':[('edad','=',True)]}"/>
+                <field name="empresa_alumno" attrs="{'invisible':[('viene_empresa','=',False)]}"/>
+                <field name="cif_empresa_alumno" attrs="{'invisible':[('viene_empresa','=',False)]}"/>
+                <field name="curso" group="1"/>
+                <field name="cantidad" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View Pagos -->
+    <record id="pagos_view_form" model="ir.ui.view">
+        <field name="name">pagos.view.form</field>
+        <field name="model">soulschool.pagos</field>
+        <field name="arch" type="xml">
+            <form string="Form Pagos">
+                <sheet>
+                    <group style="display:flex; justify-content:space-between;">
+                        <group string="Datos pago" style="flex: 1;">
+                            <field name="nombre_cliente"/>
+                            <field name="curso" />
+                            <field name="fecha_pago"/>
+                            <field name="es_matricula" />
+                            <field name="cantidad"/>
+                            <field name="metodo_pago" widget="radio" options="{'horizontal': True}"/>
+                            <field name="factura" />
+                        </group>
+                        <group string="Datos factura" attrs="{'invisible':[('factura','=',False)]}" style="flex: 1;">
+                            <field name="num_factura"/>
+                            <field name="fecha_factura"/>
+                            <field name="descuento_factura"/>
+                            <field name="iva_factura"/>
+                            <field name="nota_factura"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+
+    <record id="pagos_search_view" model="ir.ui.view">
+      <field name="name">Search View</field>
+      <field name="model">soulschool.pagos</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="alumno"/>
+          <field name="fecha_pago"/>
+          <field name="curso" group="1"/>
+          <field name="tipo_pago" group="1"/>
+        </search>
+      </field>
+    </record>  
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="soulschool.action_window_pagos">
+      <field name="name">Pagos</field>
+      <field name="res_model">soulschool.pagos</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- menu item -->
+    <menuitem name="Pagos" id="soulschool.menu_3" parent="soulschool.menu_root"
+              action="soulschool.action_window_pagos"/>
+
+<!-- Fin Vista Pagos -->
+
+</odoo>

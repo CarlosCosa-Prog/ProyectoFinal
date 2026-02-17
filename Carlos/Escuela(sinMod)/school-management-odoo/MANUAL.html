@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Interactivo - School System</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            padding: 25px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3 {
+            color: #0056b3;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+        h1 {
+            text-align: center;
+        }
+        nav {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 25px;
+        }
+        nav h2 {
+            margin-top: 0;
+            border: none;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li a {
+            display: block;
+            text-decoration: none;
+            color: #0056b3;
+            padding: 8px 0;
+            border-bottom: 1px solid #ced4da;
+        }
+        nav ul li a:hover {
+            color: #007bff;
+            font-weight: bold;
+        }
+        nav ul li:last-child a {
+            border-bottom: none;
+        }
+        details {
+            margin-bottom: 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        summary {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0056b3;
+            padding: 15px;
+            cursor: pointer;
+            background-color: #f8f9fa;
+        }
+        summary:hover {
+            background-color: #e9ecef;
+        }
+        .details-content {
+            padding: 0 20px 20px;
+        }
+        code {
+            background-color: #e9ecef;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        strong {
+            color: #343a40;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Manual del Módulo de Gestión Escolar (School System)</h1>
+        </header>
+
+        <nav id="esquema">
+            <h2>Esquema del Manual</h2>
+            <ul>
+                <li><a href="#introduccion">1. Introducción</a></li>
+                <li><a href="#caracteristicas">2. Características Principales</a></li>
+                <li><a href="#modelos">3. Modelos de Datos (Registros)</a></li>
+                <li><a href="#navegacion">4. Navegación</a></li>
+                <li><a href="#seguridad">5. Seguridad y Permisos</a></li>
+                <li><a href="#reportes">6. Reportes</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <details id="introduccion" open>
+                <summary>1. Introducción</summary>
+                <div class="details-content">
+                    <p>Este documento sirve como un manual de usuario para el módulo <strong>School System</strong> de Odoo. El módulo está diseñado para facilitar la gestión de las entidades clave en una institución educativa, como estudiantes, profesores, clases y calificaciones.</p>
+                </div>
+            </details>
+
+            <details id="caracteristicas">
+                <summary>2. Características Principales</summary>
+                <div class="details-content">
+                    <ul>
+                        <li>Gestión de información de Estudiantes.</li>
+                        <li>Gestión de información de Profesores.</li>
+                        <li>Organización de Clases.</li>
+                        <li>Registro de Materias.</li>
+                        <li>Creación y cálculo de Boletines de calificaciones.</li>
+                        <li>Generación de reportes imprimibles para los boletines.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details id="modelos">
+                <summary>3. Modelos de Datos (Registros)</summary>
+                <div class="details-content">
+                    <p>El módulo se compone de varios modelos interconectados para gestionar la información de manera eficiente.</p>
+                    
+                    <h3>3.1. Estudiante (<code>student</code>)</h3>
+                    <p>Almacena la información detallada de cada estudiante.</p>
+                    <ul>
+                        <li><strong>Campos Principales:</strong>
+                            <ul>
+                                <li><code>Nom</code>: Nombre del estudiante.</li>
+                                <li><code>Prénom</code>: Apellido del estudiante.</li>
+                                <li><code>Age</code>: Edad (campo de texto).</li>
+                                <li><code>Date Of Birth</code>: Fecha de nacimiento.</li>
+                                <li><code>Total Age</code>: Edad calculada automáticamente a partir de la fecha de nacimiento.</li>
+                                <li><code>Teacher</code>: Profesor asignado al estudiante.</li>
+                                <li><code>Classe</code>: Clase a la que pertenece el estudiante.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Etapas (Stages):</strong>
+                            <ul>
+                                <li><code>Draft</code>: Borrador.</li>
+                                <li><code>Enrolled</code>: Inscrito.</li>
+                                <li><code>Completed</code>: Completado.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3>3.2. Profesor (<code>teacher</code>)</h3>
+                    <p>Registra la información de los profesores.</p>
+                     <ul>
+                        <li><strong>Campos Principales:</strong>
+                            <ul>
+                                <li><code>Nom</code>: Nombre del profesor.</li>
+                                <li><code>Prénom</code>: Apellido del profesor.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3>3.3. Clase (<code>classe</code>)</h3>
+                    <p>Define las clases o aulas de la institución.</p>
+                    <ul>
+                        <li><strong>Campos Principales:</strong>
+                            <ul>
+                                <li><code>Libellé</code>: Nombre o etiqueta de la clase (ej. "5to Grado A").</li>
+                                <li><code>Code</code>: Código único para la clase.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3>3.4. Materia (<code>matiere</code>)</h3>
+                    <p>Define las materias o asignaturas que se imparten.</p>
+                     <ul>
+                        <li><strong>Campos Principales:</strong>
+                            <ul>
+                                <li><code>Libellé</code>: Nombre de la materia (ej. "Matemáticas").</li>
+                                <li><code>Code</code>: Código único para la materia.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3>3.5. Boletín de Calificaciones (<code>bulletin</code>)</h3>
+                    <p>Permite registrar las calificaciones de un estudiante para generar un boletín.</p>
+                    <ul>
+                        <li><strong>Campos Principales:</strong>
+                             <ul>
+                                <li><code>Student</code>: El estudiante al que pertenece el boletín.</li>
+                                <li><code>Teacher</code>: El profesor asociado.</li>
+                                <li><code>Note Moyenne</code>: Nota media calculada automáticamente.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Líneas de Boletín (<code>bulletin.ligne</code>):</strong>
+                            <ul>
+                                <li>Cada línea representa la calificación de una materia.</li>
+                                <li><code>Matière</code>: La materia evaluada.</li>
+                                <li><code>Note</code>: La calificación obtenida.</li>
+                                <li><code>Coefficient</code>: El peso o coeficiente de la materia para el cálculo del promedio.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Etapas (Stages):</strong>
+                            <ul>
+                                <li><code>Draft</code>: Borrador.</li>
+                                <li><code>Failed</code>: Reprobado.</li>
+                                <li><code>Succeed</code>: Aprobado.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </details>
+
+            <details id="navegacion">
+                <summary>4. Navegación</summary>
+                <div class="details-content">
+                    <p>El acceso a las diferentes funcionalidades del módulo se realiza a través del menú principal de Odoo:</p>
+                    <ul>
+                        <li><strong>School System</strong>: Este es el menú principal del módulo. Al hacer clic, se desplegarán submenús para acceder a las vistas de:
+                            <ul>
+                                <li>Estudiantes</li>
+                                <li>Profesores</li>
+                                <li>Clases</li>
+                                <li>Materias</li>
+                                <li>Boletines</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </details>
+
+            <details id="seguridad">
+                <summary>5. Seguridad y Permisos</summary>
+                <div class="details-content">
+                     <p>Según el archivo <code>ir.model.access.csv</code>, el acceso a los datos del módulo está configurado de la siguiente manera:</p>
+                    <ul>
+                        <li><strong>Grupo de Usuarios</strong>: <code>base.group_user</code> (Usuarios generales de Odoo).</li>
+                        <li><strong>Permisos</strong>: Todos los usuarios del grupo <code>base.group_user</code> tienen permisos completos (Lectura, Escritura, Creación y Borrado) en todos los modelos del módulo:
+                            <ul>
+                                <li><code>student</code></li>
+                                <li><code>teacher</code></li>
+                                <li><code>classe</code></li>
+                                <li><code>bulletin</code></li>
+                                <li><code>matiere</code></li>
+                                <li><code>bulletin.ligne</code></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>Esto significa que cualquier usuario registrado en el sistema puede gestionar toda la información escolar.</p>
+                </div>
+            </deta_ils>
+
+            <details id="reportes">
+                <summary>6. Reportes</summary>
+                <div class="details-content">
+                    <p>El módulo incluye un reporte para imprimir los boletines de calificaciones.</p>
+                    <ul>
+                        <li><strong>Reporte de Boletín</strong>: Se puede generar desde la vista de un registro de <code>Boletín</code>. Este reporte formatea las calificaciones, el promedio y la información del estudiante en un documento PDF listo para ser impreso o distribuido.</li>
+                    </ul>
+                </div>
+            </details>
+        </main>
+    </div>
+</body>
+</html>

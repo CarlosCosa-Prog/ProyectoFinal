@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Cursos tree -->
+    <record model="ir.ui.view" id="soulschool.list_cursos">
+      <field name="name">Lista Cursos</field>
+      <field name="model">soulschool.cursos</field>
+      <field name="arch" type="xml">
+        <tree multi_edit="1" sample="1">
+          <field name="codigo_curso"/>
+          <field name="nombre_curso"/>
+          <field name="coste_mes"/>
+          <field name="coste_total"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Cursos Form -->
+    <record id="cursos_view_form" model="ir.ui.view">
+      <field name="name">cursos.view.form</field>
+      <field name="model">soulschool.cursos</field>
+      <field name="arch" type="xml">
+        <form string="Curso">
+          <sheet>
+            <group>
+              <group string="Información General">
+                <field name="codigo_curso"></field>
+                <field name="nombre_curso"></field>
+                <label for="duracion" string="Duracion"/>
+                <div class="row">
+                  <div class="col-2">
+                    <field name="duracion"/>
+                  </div>
+                  <div class="col-3">
+                    <field name="duracion_um"/>
+                  </div>
+                </div>
+                <field name="descripcion"></field>
+              </group>
+              <group string="Formato de Pago">
+                <field name="coste_mes"/>
+                <field name="coste_total"></field>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Search View -->
+
+    <record id="cursos_search_view" model="ir.ui.view">
+      <field name="name">Search View</field>
+      <field name="model">soulschool.cursos</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="nombre_curso"/>
+          <field name="codigo_curso"/>
+        </search>
+      </field>
+    </record> 
+
+    <!-- actions opening windows -->
+    <record model="ir.actions.act_window" id="soulschool.action_window_cursos">
+      <field name="name">Cursos</field>
+      <field name="res_model">soulschool.cursos</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu item -->
+    <!-- <menuitem name="Cursos" id="soulschool.menu_2" parent="soulschool.menu_root"/>  -->
+
+    <!-- Submenu item -->
+    <menuitem name="Cursos" id="soulschool.menu_2_1" parent="soulschool.menu_root"
+                action="soulschool.action_window_cursos"/>
+
+</odoo>

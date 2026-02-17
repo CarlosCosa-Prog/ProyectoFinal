@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Alumnos Tree -->
+    <record model="ir.ui.view" id="alumnos_tree_view">
+      <field name="name">soulschool.view.tree</field>
+      <field name="model">soulschool.alumnos</field>
+      <field name="arch" type="xml">
+        <tree multi_edit="1">
+          <field name="dni"/>
+          <field name="nombre"/>
+          <field name="direccion"/>
+          <field name="telefono"/>
+          <field name="nombre_empresa"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Alumnos Kanban -->
+    <record model="ir.ui.view" id="alumnos_kanban_view">
+      <field name="name">soulschool.view.kanban</field>
+      <field name="model">soulschool.alumnos</field>
+      <field name="arch" type="xml">
+        <kanban>
+          <field name="nombre"/>
+          <field name="foto"/>
+          <field name="apellidos"/>
+          <field name="email"/>
+          <field name="dni"/>
+          <templates>
+            <t t-name="kanban-box">
+              <div class="oe_kanban_global_click" style="border-radius: 10px; background: aliceblue; display: flex; justify-content: center; align-items: center;">
+                <div class="o_kanban_image">
+                  <field name="foto" widget="image" class="img-fluid"/>
+                </div>
+                <div class="oe_kanban_details" style="padding-left: 15px; width: auto;">
+                  <ul style="font-size: inherit">
+                    <li><strong><field name="nombre"/></strong></li>
+                    <li><field name="apellidos"/></li>
+                    <li>Correo: <field name="email"/></li>
+                    <li>DNI: <field name="dni"/></li>
+                  </ul>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <!-- Alumnos Form -->
+    <record id="alumnos_view_form" model="ir.ui.view">
+      <field name="name">soulschool.view.form</field>
+      <field name="model">soulschool.alumnos</field>
+      <field name="arch" type="xml">
+        <form string="Ficha Técnica">
+          <sheet>
+            <group>
+              <group string="Datos personales">
+                <field name="dni"/>
+                <field name="nombre"/>
+                <field name="apellidos"/>
+                <field name="edad"/>
+                <field name="edad_"/>
+                <field name="telefono" attrs="{'invisible':[('edad','=',False)]}"/>
+                <field name="email" attrs="{'invisible':[('edad','=',False)]}"/>
+                <field name="empresa_"/>
+                <field name="horario_dias" />
+                <field name="horario_horas" />
+                <field name="foto" widget="image"/>
+              </group>
+              <group style="display: block;">
+                <group string="Datos Empresa" attrs="{'invisible':[('empresa_','=',False)]}" class="col-lg-12">
+                  <field name="empresa_id"/>
+                  <field name="nombre_empresa"/>
+                  <field name="cif_empresa"/>
+                </group>
+                <group string="Datos Tutores" attrs="{'invisible':[('edad','=',True)]}"  class="col-lg-12">
+                  <field name="dni_tutor"></field>
+                  <field name="nombre_tutor"></field>
+                  <field name="telefono_tutor"></field>
+                  <field name="email_tutor"></field>
+                </group>
+                <group string="Dirección"  class="col-lg-12">
+                  <field name="country_id"/>
+                  <field name="state_id"/>
+                  <field name="localidad"/>
+                  <field name="codigo_postal"/>
+                  <field name="direccion"/>
+                </group>
+              </group>
+            </group>
+          <notebook>
+            <page name="cursos" string="Cursos">
+              <field name="order_line" mode="tree"/>
+            </page>
+          </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Search View -->
+
+    <record id="alumnos_search_view" model="ir.ui.view">
+      <field name="name">Search View</field>
+      <field name="model">soulschool.alumnos</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="nombre"/>
+          <field name="apellidos"/>
+        </search>
+      </field>
+    </record>  
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="soulschool.action_window_alumnos">
+      <field name="name">Alumnos</field>
+      <field name="res_model">soulschool.alumnos</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+    
+    <!-- Top menu item-->
+    <menuitem name="3DSOUL" id="soulschool.menu_root"/>
+    
+    <!-- menu items -->
+    <menuitem name="Clientes" id="soulschool.menu_1" parent="soulschool.menu_root"/>
+    <!-- sub menu items -->
+    <menuitem name="Alumnos" id="soulschool.menu_1_1" parent="soulschool.menu_1"
+                action="soulschool.action_window_alumnos"/>
+    
+<!-- Fin Vista Alumnos -->
+</odoo>

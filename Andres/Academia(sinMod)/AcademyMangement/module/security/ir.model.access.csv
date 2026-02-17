@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_soulschool_alumnos,soulschool.alumnos,model_soulschool_alumnos,base.group_user,1,1,1,1
+access_soulschool_alumnos_order,soulschool.alumnos_order,model_soulschool_alumnos_order,base.group_user,1,1,1,1
+access_soulschool_pagos,soulschool.pagos,model_soulschool_pagos,base.group_user,1,1,1,1
+access_soulschool_cursos,soulschool.cursos,model_soulschool_cursos,base.group_user,1,1,1,1
+access_soulschool_empresas,soulschool.empresas,model_soulschool_empresas,base.group_user,1,1,1,1
