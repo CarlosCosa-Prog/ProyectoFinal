@@ -19,16 +19,16 @@
             </field>
         </record>
 
-        <!-- Teacher Tree View -->
-        <record model="ir.ui.view" id="view_teacher_tree">
-            <field name="name">teacher.tree</field>
+        <!-- Teacher list View -->
+        <record model="ir.ui.view" id="view_teacher_list">
+            <field name="name">teacher.list</field>
             <field name="model">teacher</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="name"/>
                     <field name="prenom"/>
                     <!-- Add more fields if needed -->
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -36,7 +36,7 @@
         <field name="name">Teachers</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">teacher</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         </record>
 
 

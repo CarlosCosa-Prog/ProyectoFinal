@@ -9,23 +9,23 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-            <field name="stage" widget="statusbar" statusbar_visible="draft,failed, succeed"
-                   options="{'clickable': '1'}"/>
-            <button name="action_fail" string="Failed" type="object" class="oe_highlight"
-                    attrs="{'invisible': [('stage', '=', 'failed')]}"/>
-            <button name="action_success" string="Succeed" type="object" class="oe_highlight"
-                    attrs="{'invisible': [('stage', '=', 'succeed')]}"/>
-        </header>
+                        <field name="stage" widget="statusbar" statusbar_visible="draft,failed,succeed"
+                               options="{'clickable': '1'}"/>
+                        <button name="action_fail" string="Failed" type="object" class="oe_highlight"
+                                modifiers="{'invisible': [('stage', '=', 'failed')]}"/>
+                        <button name="action_success" string="Succeed" type="object" class="oe_highlight"
+                                modifiers="{'invisible': [('stage', '=', 'succeed')]}"/>
+                    </header>
                     <sheet>
                         <group>
                             <field name="teacher_id"/>
                             <field name="student_id"/>
                             <field name="bulletin_ligne_ids">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="matiere_id"/>
                                     <field name="note"/>
                                     <field name="coefficient"/>
-                                </tree>
+                                </list>
                             </field>
                             <field name="note_moyenne"/>
                         </group>
@@ -34,18 +34,18 @@
             </field>
         </record>
 
-        <!-- Bulletin Tree View -->
-        <record model="ir.ui.view" id="view_bulletin_tree">
-            <field name="name">bulletin.tree</field>
+        <!-- Bulletin List View -->
+        <record model="ir.ui.view" id="view_bulletin_list">
+            <field name="name">bulletin.list</field>
             <field name="model">bulletin</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="teacher_id"/>
                     <field name="student_id"/>
                     <field name="note_moyenne"/>
                     <field name="stage"/>
                     <!-- Add more fields if needed -->
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -54,7 +54,7 @@
             <field name="name">Bulletin</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">bulletin</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
         </record>
 
         <!-- Menu Item -->

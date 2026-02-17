@@ -19,16 +19,16 @@
             </field>
         </record>
 
-        <!-- Classe Tree View -->
-        <record model="ir.ui.view" id="view_classe_tree">
-            <field name="name">classe.tree</field>
+        <!-- Classe list View -->
+        <record model="ir.ui.view" id="view_classe_list">
+            <field name="name">classe.list</field>
             <field name="model">classe</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="libelle"/>
                     <field name="code"/>
                     <!-- Add more fields if needed -->
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -36,7 +36,7 @@
         <field name="name">Classes</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">classe</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         </record>
 
 
